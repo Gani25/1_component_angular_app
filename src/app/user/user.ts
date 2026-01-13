@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -7,11 +7,20 @@ import { Component, Input } from '@angular/core';
   styleUrl: './user.css',
 })
 export class User {
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
+  // @Input({ required: true }) avatar!: string;
+  // @Input({ required: true }) name!: string;
 
-  get imagePath() {
-    return `assets/users/${this.avatar}`;
-  }
+  // received value in string if not then undefined or we can pass default values
+  //  -> so we can make type as string <string>
+
+  // with required we can't pass initial values
+  avatar = input.required<string>();
+  name = input.required<string>();
+
+  imagePath = computed(() => `assets/users/${this.avatar()}`);
+
+  // get imagePath() {
+  //   return `assets/users/${this.avatar}`;
+  // }
   onSelectUser() {}
 }
